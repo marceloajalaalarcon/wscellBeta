@@ -58,8 +58,8 @@ export async function POST(req: Request) {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.SITE_URL || 'http://localhost:3000'}/success`,
-      cancel_url: `${process.env.SITE_URL || 'http://localhost:3000'}/cancel`,
+      success_url: `${process.env.SITE_URL ? process.env.SITE_URL : 'http://localhost:3000'}/success`,
+      cancel_url: `${process.env.SITE_URL ? process.env.SITE_URL : 'http://localhost:3000'}/cancel`,
     });
     
     // console.log('Sessão de checkout criada:', session); // Verifique a resposta da Stripe
