@@ -18,13 +18,13 @@ export async function GET() {
       const productPrices = prices.data.filter(price => price.product === product.id);
       
       // Verificar se há preços para o produto e pegar o primeiro preço
-      const productPrice = productPrices.length > 0 ? productPrices[0].unit_amount / 100 : null; // Divide por 100 porque o valor vem em centavos
+      const productPrice = `${productPrices.length > 0 ? productPrices[0].unit_amount: null}` // Divide por 100 porque o valor vem em centavos
 
       const productData = {
         id: product.id,
         name: product.name,
         description: product.description,
-        price: productPrice+",00",
+        price: productPrice,
         image: product.images[0] || '', // Pega a primeira imagem
       };
 

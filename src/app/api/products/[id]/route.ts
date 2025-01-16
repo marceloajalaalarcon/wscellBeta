@@ -22,7 +22,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
       product: id,
     });
     // Garantir que o produto e o preço existem
-    const price = prices.data[0].unit_amount / 100+",00"  // Stripe retorna o valor em centavos, por isso dividimos por 100
+    const price = prices.data[0].unit_amount // Stripe retorna o valor em centavos, por isso dividimos por 100
     const image = product.images[0] || ''; // Garantir que existe uma imagem
 
     return NextResponse.json({
