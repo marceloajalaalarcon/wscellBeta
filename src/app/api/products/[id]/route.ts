@@ -5,25 +5,22 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2024-12-18.acacia',
 });
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
-  // Esperar o 'params' ser resolvido corretamente
-  const { id } = params;
+export async function GET(
+  req: Request,
+  context: { params: Promise<{ id: string }> } // Awaitable `params`
+) {
+  const { id } = await context.params; // Await the `params`
 
   if (!id) {
     return NextResponse.json({ error: 'Product ID is missing' }, { status: 400 });
   }
 
   try {
-    // Buscar o produto na Stripe com o ID
     const product = await stripe.products.retrieve(id);
+    const prices = await stripe.prices.list({ product: id });
 
-    // Buscar o preço do produto
-    const prices = await stripe.prices.list({
-      product: id,
-    });
-    // Garantir que o produto e o preço existem
-    const price = prices.data[0].unit_amount // Stripe retorna o valor em centavos, por isso dividimos por 100
-    const image = product.images[0] || ''; // Garantir que existe uma imagem
+    const price = prices.data[0]?.unit_amount; // Stripe returns the value in cents
+    const image = product.images[0] || '';
 
     return NextResponse.json({
       id: product.id,
@@ -33,7 +30,8 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
       price,
       category: product.metadata.category,
     });
-  } catch (error) {
-    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

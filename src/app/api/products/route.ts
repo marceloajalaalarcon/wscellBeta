@@ -18,7 +18,7 @@ export async function GET() {
       const productPrices = prices.data.filter(price => price.product === product.id);
       
       // Verificar se há preços para o produto e pegar o primeiro preço
-      const productPrice = `${productPrices.length > 0 ? productPrices[0].unit_amount: null}` // Divide por 100 porque o valor vem em centavos
+      const productPrice: any = `${productPrices.length > 0 ? productPrices[0].unit_amount: null}` // Divide por 100 porque o valor vem em centavos
 
       const productData = {
         id: product.id,
