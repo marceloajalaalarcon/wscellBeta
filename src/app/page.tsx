@@ -83,7 +83,7 @@ const ProductsPage = () => {
           </div>
         ))}
       </div>
-      <footer className="bg-gray-800 text-gray-200 py-8 mt-16 rounded-xl">
+      <footer className="bg-gray-800 text-gray-200 py-8 mt-16 rounded-2xl">
   <div className="max-w-screen-xl mx-auto px-6 lg:px-16">
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div>
