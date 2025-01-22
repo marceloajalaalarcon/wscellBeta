@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Footer } from '@/components/home/Footer';
 import CategoriesFilter from '@/components/home/CategoriesFilter';
 import ProductCard from '@/components/home/ProductCard';
@@ -24,7 +24,9 @@ const ProductsPage = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isBlurred, setIsBlurred] = useState(false); // Estado para efeito de scroll
   const [isLoading, setIsLoading] = useState(true);
+  const productsSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -36,6 +38,18 @@ const ProductsPage = () => {
     }
 
     fetchProducts();
+
+    const handleScroll = () => {
+      if (productsSectionRef.current) {
+        const { top } = productsSectionRef.current.getBoundingClientRect();
+        setIsBlurred(top <= 80); // Atualiza o estado baseado na posição de rolagem
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleCategorySelect = (category: string | null) => {
@@ -71,16 +85,27 @@ const ProductsPage = () => {
         <p className="text-center text-lg text-gray-600 mb-6">
           Explore nossas categorias e descubra produtos incríveis para você.
         </p>
-        <div className="max-w-screen-lg mx-auto px-4 py-4 flex items-center gap-4">
-          <img src="/foda.jpg" alt="Logo" className="w-12 h-12 object-contain" />
-          <SearchBar value={searchTerm} onChange={handleSearch} />
+
+        {/* Barra fixa com busca */}
+        <div
+          className={`${
+            isBlurred
+              ? 'fixed top-0 left-0 right-0 z-20 bg-white bg-opacity-80 backdrop-blur-md shadow-lg transition-all duration-300'
+              : 'relative bg-transparent'
+          }`}
+        >
+          <div className="max-w-screen-lg mx-auto px-4 py-4 flex items-center gap-4">
+            <img src="/foda.jpg" alt="Logo" className="w-12 h-12 object-contain" />
+            <SearchBar value={searchTerm} onChange={handleSearch} />
+          </div>
         </div>
+
         <CategoriesFilter
           categories={Object.keys(categories)}
           selectedCategory={selectedCategory}
           onSelectCategory={handleCategorySelect}
         />
-        <div>
+        <div ref={productsSectionRef}>
           {isLoading ? (
             <LoadingSpinner />
           ) : filteredProducts.length > 0 ? (
