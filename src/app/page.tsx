@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Footer } from '@/components/home/Footer';
 import CategoriesFilter from '@/components/home/CategoriesFilter';
 import ProductCard from '@/components/home/ProductCard';
