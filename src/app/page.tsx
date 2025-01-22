@@ -26,6 +26,7 @@ const ProductsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isBlurred, setIsBlurred] = useState(false); // Estado para efeito de scroll
   const [isLoading, setIsLoading] = useState(true);
+  const [showAllCategories, setShowAllCategories] = useState(false); // Estado para exibir mais categorias
   const productsSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -76,6 +77,14 @@ const ProductsPage = () => {
     );
   };
 
+  const filteredCategories = Object.keys(categories).filter(
+    (category) => category !== 'Uncategorized' // Oculta categorias específicas
+  );
+
+  const displayedCategories = showAllCategories
+    ? filteredCategories
+    : filteredCategories.slice(0, 5); // Mostra apenas 5 categorias inicialmente
+
   return (
     <div className="bg-gradient-to-r from-blue-100 via-white to-purple-100 py-16 px-6 lg:px-16">
       <div className="max-w-screen-xl mx-auto">
@@ -100,11 +109,41 @@ const ProductsPage = () => {
           </div>
         </div>
 
-        <CategoriesFilter
-          categories={Object.keys(categories)}
-          selectedCategory={selectedCategory}
-          onSelectCategory={handleCategorySelect}
-        />
+        {/* Filtro de categorias */}
+        <div className="flex flex-wrap justify-center gap-4 mt-5 mb-11">
+          <button
+            onClick={() => handleCategorySelect(null)}
+            className={`px-6 py-2 text-lg font-semibold rounded-full transition ${
+              !selectedCategory
+                ? 'bg-purple-600 text-white'
+                : 'bg-gray-200 text-gray-800'
+            } hover:bg-purple-500 hover:text-white`}
+          >
+            Todas as Categorias
+          </button>
+          {displayedCategories.map((category) => (
+            <button
+              key={category}
+              onClick={() => handleCategorySelect(category)}
+              className={`px-6 py-2 text-lg font-semibold rounded-full transition ${
+                selectedCategory === category
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-200 text-gray-800'
+              } hover:bg-purple-500 hover:text-white`}
+            >
+              {category}
+            </button>
+          ))}
+          {filteredCategories.length > 5 && (
+            <button
+              onClick={() => setShowAllCategories((prev) => !prev)}
+              className="px-6 py-2 text-lg font-semibold rounded-full bg-gray-300 text-gray-800 hover:bg-purple-500 hover:text-white transition"
+            >
+              {showAllCategories ? 'Mostrar Menos' : 'Mais Categorias'}
+            </button>
+          )}
+        </div>
+
         <div ref={productsSectionRef}>
           {isLoading ? (
             <LoadingSpinner />
