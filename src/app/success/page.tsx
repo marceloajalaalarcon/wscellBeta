@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-const SuccessPage = () => {
+const SuccessPageContent = () => {
   const [statusMessage, setStatusMessage] = useState('Verificando o pagamento...');
   const [statusColor, setStatusColor] = useState('gray'); // Estado inicial neutro
   const router = useRouter();
   const searchParams = useSearchParams();
-  const sessionId = searchParams.get('session_id');
+  const sessionId = searchParams?.get('session_id');
 
   useEffect(() => {
     if (sessionId) {
@@ -66,6 +66,14 @@ const SuccessPage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const SuccessPage = () => {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <SuccessPageContent />
+    </Suspense>
   );
 };
 
