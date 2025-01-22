@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { Footer } from '@/components/home/Footer';
-import CategoriesFilter from '@/components/home/CategoriesFilter';
 import ProductCard from '@/components/home/ProductCard';
 import SearchBar from '@/components/home/SearchBar';
 import LoadingSpinner from '@/components/home/LoadingSpinner';
