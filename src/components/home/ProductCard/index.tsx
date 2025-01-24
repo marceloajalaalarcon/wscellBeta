@@ -22,11 +22,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       onClick={() => router.push(`/product/${product.id}`)}
     >
       <div className="relative">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-64 object-cover group-hover:opacity-90 transition duration-300 ease-in-out"
-        />
+        <div className="w-full h-48 sm:h-64 lg:h-80 flex justify-center items-center overflow-hidden bg-gray-100">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="object-cover w-full h-full sm:object-contain"
+          />
+        </div>
         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out flex justify-center items-center">
           <span className="text-white text-lg font-semibold bg-purple-600 px-4 py-2 rounded-lg shadow-lg">
             Ver Detalhes

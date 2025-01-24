@@ -12,7 +12,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
       value={value}
       onChange={onChange}
       placeholder="Pesquisar produtos..."
-      className="flex-grow p-4 border border-gray-300 rounded-full shadow-sm text-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+      className="flex-grow p-2 border border-gray-300 rounded-2xl shadow-sm text-base text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
     />
   );
 };
