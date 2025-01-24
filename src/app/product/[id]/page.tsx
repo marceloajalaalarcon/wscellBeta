@@ -1,23 +1,32 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation'; // Importando useParams e useRouter
+import { useParams, useRouter } from 'next/navigation';
+import { Footer } from '@/components/home/Footer';
 
 interface Product {
   id: string;
   name: string;
   description: string;
-  metadata: {
-    category: string;
-  };
-  image: string; // Adicionando a propriedade para imagem do produto
-  price: string; // Corrigido para incluir o preço
+  category?: string;
+  garantia?: string;
+  image: string;
+  price: string;
+  related?: RelatedProduct[];
+}
+
+interface RelatedProduct {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  price: string;
 }
 
 const ProductDetailPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
-  const { id } = useParams(); // Pegando o id da URL
-  const router = useRouter(); // Para navegação
+  const { id } = useParams();
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchProduct() {
@@ -32,40 +41,59 @@ const ProductDetailPage = () => {
 
   if (!product) return <div className="text-center py-12 text-lg">Carregando...</div>;
 
+  const category = product.category ?? 'Categoria não especificada';
+  const garantia = product.garantia ?? null;
+
   return (
-    <div className="bg-gradient-to-r from-blue-50 via-white to-purple-50 py-12 px-6 sm:px-12">
-      <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden flex flex-col md:flex-row">
+    <div className="bg-gradient-to-r from-blue-100 via-white to-purple-100 py-12 px-6 sm:px-12">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-8">
         {/* Imagem do produto */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full lg:w-1/2 bg-white rounded-2xl shadow-xl overflow-hidden">
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover transition-opacity duration-500`}
           />
         </div>
 
-        <div className="p-8 w-full md:w-1/2">
-          {/* Nome e descrição do produto */}
-          <h1 className="text-5xl font-bold text-gray-800 mb-6">{product.name}</h1>
-          <p className="text-lg text-gray-600 leading-relaxed mb-4">{product.description}</p>
+        {/* Detalhes do produto e Categoria */}
+        <div className="w-full lg:w-1/2 bg-white rounded-2xl shadow-xl p-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
+          <p className="text-sm text-gray-500">
+            Categoria: <span className="font-bold text-gray-900">{category}</span>
+          </p>
+          <p className="text-gray-700 text-lg leading-relaxed mb-6">{product.description}</p>
 
-          {/* Categoria e preço */}
+          {/* Preço */}
           <div className="flex items-center justify-between mb-6">
-            {/* <p className="text-sm text-gray-500">Categoria: {product.metadata.category}</p> */}
-            <p className="text-3xl font-semibold text-purple-700">{product.price}</p>
+            <p className="text-4xl font-bold text-indigo-600">{product.price}</p>
           </div>
 
-          {/* Botão de checkout */}
-          <div className="flex justify-center md:justify-start space-x-4">
+          {/* Benefícios do produto */}
+          <div className="bg-indigo-50 rounded-lg p-4 mb-6">
+            <h3 className="text-xl font-bold text-indigo-600 mb-2">Por que comprar?</h3>
+            <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <li>Alta qualidade garantida</li>
+              <li>Entrega rápida e segura</li>
+              {garantia && (
+                <li>
+                  <span className="font-bold text-gray-900">Garantia de {garantia}</span>
+                </li>
+              )}
+            </ul>
+          </div>
+
+          {/* Botões de ação */}
+          <div className="flex space-x-4">
             <button
               onClick={() => router.back()}
-              className="bg-gray-300 text-gray-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg"
+              className="bg-gray-300 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg"
             >
               Voltar
             </button>
             <button
               onClick={() => handleCheckout(product.id)}
-              className="bg-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-lg"
+              className="bg-indigo-600 text-white px-4 py-3 rounded-full font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-lg"
             >
               Comprar Agora
             </button>
@@ -73,32 +101,43 @@ const ProductDetailPage = () => {
         </div>
       </div>
 
-      {/* Seção de produtos relacionados */}
-      <div className="mt-16">
-        <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">Produtos Relacionados</h2>
+      {/* Produtos relacionados */}
+      <div className="mt-16 max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
+          Você também pode gostar
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Exemplo de produtos relacionados */}
-          {[...Array(4)].map((_, index) => (
-            <div
-              key={index}
+          
+        {product.related && product.related.length > 0 ? (
+          product.related.map((relatedProduct) => (
+            <a
+              key={relatedProduct.id}
+              href={`/product/${relatedProduct.id}`}
               className="group bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transform transition duration-300 ease-in-out"
             >
               <img
-                src="/placeholder.jpg"
-                alt="Produto relacionado"
+                src={relatedProduct.image}
+                alt={relatedProduct.name}
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold text-gray-900 truncate">
-                  Nome do Produto
+                  {relatedProduct.name}
                 </h3>
-                <p className="text-gray-600 mt-2 truncate">Descrição curta do produto</p>
-                <p className="text-purple-700 font-bold mt-2">R$ 99,99</p>
+                <p className="text-gray-600 mt-2 truncate">{relatedProduct.description}</p>
+                <p className="text-purple-700 font-bold mt-2">{relatedProduct.price}</p>
               </div>
-            </div>
-          ))}
+            </a>
+          ))
+        ) : (
+          <p className="text-center text-gray-600 col-span-4">
+            Nenhum produto relacionado encontrado.
+          </p>
+        )}
+
         </div>
       </div>
+      <Footer/>
     </div>
   );
 

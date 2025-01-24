@@ -16,9 +16,9 @@ function formatPrice(amount: number | null): string {
 
 export async function GET(
   req: Request,
-  context: { params: Promise<{ id: string }> } // Awaitable `params`
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await context.params; // Await the `params`
+  const { id } = await context.params;
 
   if (!id) {
     return NextResponse.json({ error: 'Product ID is missing' }, { status: 400 });
@@ -31,57 +31,41 @@ export async function GET(
     // Obter o preço do produto (ou 0 se não existir)
     const price = prices.data[0]?.unit_amount ?? null;
 
-    // Pegar a primeira imagem ou uma string vazia
-    const image = product.images[0] || '';
+    // Pegar a categoria do produto atual
+    const category = product.metadata.category || 'Uncategorized';
+
+    // Buscar produtos relacionados com base na categoria
+    const relatedProducts = await stripe.products.list({
+      active: true,
+    });
+
+    const related = [];
+for (const p of relatedProducts.data) {
+  // Filtrar por categoria e evitar o próprio produto
+  if (p.metadata.category === category && p.id !== id) {
+    const priceData = await stripe.prices.list({ product: p.id });
+    related.push({
+      id: p.id,
+      name: p.name,
+      description: p.description || '',
+      image: p.images[0] || '/placeholder.jpg',
+      price: formatPrice(priceData.data[0]?.unit_amount ?? null),
+    });
+  }
+}
 
     return NextResponse.json({
       id: product.id,
       name: product.name,
       description: product.description,
-      image,
-      price: formatPrice(price), // Formatar o preço
-      category: product.metadata.category || 'Uncategorized',
+      image: product.images[0] || '',
+      price: formatPrice(price),
+      category,
+      garantia: product.metadata.garantia || 'Sem garantia',
+      related, // Adicionar os produtos relacionados
     });
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
-
-// import { NextResponse } from 'next/server';
-// import Stripe from 'stripe';
-
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-//   apiVersion: '2024-12-18.acacia',
-// });
-
-// export async function GET(
-//   req: Request,
-//   context: { params: Promise<{ id: string }> } // Awaitable `params`
-// ) {
-//   const { id } = await context.params; // Await the `params`
-
-//   if (!id) {
-//     return NextResponse.json({ error: 'Product ID is missing' }, { status: 400 });
-//   }
-
-//   try {
-//     const product = await stripe.products.retrieve(id);
-//     const prices = await stripe.prices.list({ product: id });
-
-//     const price = (prices.data[0]?.unit_amount ?? 0)/100; // Stripe returns the value in cents
-//     const image = product.images[0] || '';
-
-//     return NextResponse.json({
-//       id: product.id,
-//       name: product.name,
-//       description: product.description,
-//       image,
-//       price,
-//       category: product.metadata.category,
-//     });
-//   } catch (error: unknown) {
-//     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-//     return NextResponse.json({ error: errorMessage }, { status: 500 });
-//   }
-// }

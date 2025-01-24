@@ -113,10 +113,10 @@ const ProductsPage = () => {
         </div>
 
         {/* Filtro de categorias */}
-        <div className="flex flex-wrap justify-center gap-3 mt-5 mb-8">
+        <div className="flex flex-wrap justify-center gap-3 mt-5 mb-8 ">
           <button
             onClick={() => handleCategorySelect(null)}
-            className={`px-5 py-2 text-sm sm:text-base font-medium rounded-xl transition ${
+            className={`px-5 py-2 text-sm sm:text-base font-medium rounded-xl transition  ${
               !selectedCategory
                 ? 'bg-purple-600 text-white'
                 : 'bg-gray-200 text-gray-800'
@@ -140,7 +140,7 @@ const ProductsPage = () => {
           {filteredCategories.length > 5 && (
             <button
               onClick={() => setShowAllCategories((prev) => !prev)}
-              className="px-5 py-2 text-sm sm:text-base font-medium rounded-full bg-gray-300 text-gray-800 hover:bg-purple-500 hover:text-white transition"
+              className="px-5 py-2 text-sm sm:text-base font-medium rounded-full bg-gray-300 text-gray-800 hover:bg-purple-500 hover:text-white transition cursor-pointer"
             >
               {showAllCategories ? 'Mostrar Menos' : 'Mais Categorias'}
             </button>
