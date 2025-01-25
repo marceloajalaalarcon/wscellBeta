@@ -166,10 +166,11 @@ const ProductsPage = () => {
               Nenhum produto encontrado.
             </p>
           )}
+           {/* Botão whatsapp */}
+        <WhatsAppButton message="Olá, estou interessado nos produtos disponíveis no site!" />
         </div>
       </div>
-        {/* Botão whatsapp */}
-        <WhatsAppButton message="Olá, estou interessado nos produtos disponíveis no site!" />
+       
       <Footer />
     </div>
   );

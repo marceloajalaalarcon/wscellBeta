@@ -143,11 +143,11 @@ const ProductDetailPage = () => {
             Nenhum produto relacionado encontrado.
           </p>
         )}
-    {/* Botão whatsapp */}
-       <WhatsAppButton productName={product.name} message={messageWhatsapp} />
+
         </div>
-      
       </div>
+       {/* Botão whatsapp */}
+       <WhatsAppButton productName={product.name} message={messageWhatsapp} />
       <Footer/>
     </div>
   );
