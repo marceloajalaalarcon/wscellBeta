@@ -168,8 +168,8 @@ const ProductsPage = () => {
           )}
         </div>
       </div>
-          {/* Botão whatsapp */}
-    <WhatsAppButton message="Olá, estou interessado nos produtos disponíveis no site!" />
+        {/* Botão whatsapp */}
+        <WhatsAppButton message="Olá, estou interessado nos produtos disponíveis no site!" />
       <Footer />
     </div>
   );

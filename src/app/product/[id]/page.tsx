@@ -46,6 +46,8 @@ const ProductDetailPage = () => {
   const category = product.category ?? null;
   const garantia = product.garantia ?? null;
 
+  const messageWhatsapp = `Olá, gostaria de saber mais sobre o produto "*${product.name}*" no valor de: ${product.price}.`;
+
   return (
     <div className="bg-gradient-to-r from-blue-100 via-white to-purple-100 py-12 px-6 sm:px-12">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-8">
@@ -145,9 +147,7 @@ const ProductDetailPage = () => {
         </div>
       </div>
        {/* Botão whatsapp */}
-     <WhatsAppButton
-          message={`Olá, estou interessado no produto "*${product.name}*" que custa: "*${product.price}*" que vi no site.`}
-        />
+       <WhatsAppButton productName={product.name} message={messageWhatsapp} />
       <Footer/>
     </div>
   );

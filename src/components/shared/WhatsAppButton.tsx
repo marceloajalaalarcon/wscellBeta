@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 
 interface WhatsAppButtonProps {
+  productName?: string; // Nome do produto (opcional)
   message: string; // Mensagem que será enviada no WhatsApp
 }
 
-const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ message }) => {
+const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
+  productName,
+  message,
+}) => {
   const [showNotification, setShowNotification] = useState(false); // Inicialmente oculto
   const phone = "5567992909877"; // Substitua pelo número de telefone com código do país e DDD
-  const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(
+    message
+  )}`;
 
   useEffect(() => {
     // Exibe a notificação ao carregar
@@ -33,7 +39,9 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ message }) => {
             : "opacity-0 translate-y-4"
         } transition-all duration-500 bg-gray-800 text-white text-sm px-4 py-2 rounded-lg shadow-md`}
       >
-        📢 Dúvidas? 
+        {productName
+          ? `📢 Dúvidas sobre o produto "${productName}"? Entre em contato!`
+          : `📢 Dúvidas? Entre em contato!`}
       </div>
 
       {/* Botão do WhatsApp */}
