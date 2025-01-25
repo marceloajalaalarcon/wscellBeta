@@ -70,7 +70,7 @@ const CheckoutForm = ({ productId }: { productId: string }) => {
       }),
     });
 
-    const { clientSecret, error: serverError, finalPrice } = await res.json();
+    const { clientSecret, error: serverError } = await res.json();
     if (serverError) {
       setError(serverError);
       setLoading(false);
