@@ -153,19 +153,27 @@ const ProductsPage = () => {
 
         {/* Produtos */}
         <div ref={productsSectionRef}>
-          {isLoading ? (
+        {/* Loading */}
+        {isLoading ? (
+          <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-r from-blue-100 via-white to-purple-100 z-50">
             <LoadingSpinner />
-          ) : filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-600 text-base sm:text-lg">
-              Nenhum produto encontrado.
-            </p>
-          )}
+          </div>
+        ) : (
+          <>
+            {filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-gray-600 text-base sm:text-lg">
+                Nenhum produto encontrado.
+              </p>
+            )}
+          </>
+        )}
+
         </div>
       </div>
         {/* Botão whatsapp */}
