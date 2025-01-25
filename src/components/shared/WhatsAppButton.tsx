@@ -30,7 +30,7 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-4 flex items-center gap-2">
+    <div className="fixed bottom-5 right-4 flex items-center gap-2">
       {/* Notificação com animação */}
       <div
         className={`${
