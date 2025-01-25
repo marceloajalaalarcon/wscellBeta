@@ -86,6 +86,11 @@ const ProductDetailPage = () => {
     }
   };
 
+  // const handleCheckout = () => {
+  //   router.push(`/checkout/${product.id}`);
+  // };
+  
+
   return (
     <div className="bg-gradient-to-r from-blue-100 via-white to-purple-100 py-12 px-6 sm:px-12">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-8">
