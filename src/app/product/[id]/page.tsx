@@ -145,9 +145,9 @@ const ProductDetailPage = () => {
         )}
 
         </div>
-      </div>
-       {/* Botão whatsapp */}
+          {/* Botão whatsapp */}
        <WhatsAppButton productName={product.name} message={messageWhatsapp} />
+      </div>
       <Footer/>
     </div>
   );
