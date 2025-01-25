@@ -46,7 +46,7 @@ const ProductDetailPage = () => {
   const category = product.category ?? null;
   const garantia = product.garantia ?? null;
 
-  const messageWhatsapp = `Olá, gostaria de saber mais sobre o produto "*${product.name}*" no valor de: ${product.price}.`;
+  const messageWhatsapp = `Olá, gostaria de saber mais sobre o produto "*${product.name}*" no valor de: "*${product.price}*" vi no site.`;
 
   return (
     <div className="bg-gradient-to-r from-blue-100 via-white to-purple-100 py-12 px-6 sm:px-12">
