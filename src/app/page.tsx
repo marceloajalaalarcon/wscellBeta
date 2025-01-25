@@ -155,12 +155,14 @@ const ProductsPage = () => {
         <div ref={productsSectionRef}>
         {/* Loading */}
         {isLoading ? (
-          <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-r from-blue-100 via-white to-purple-100 z-50">
-            <LoadingSpinner />
-            <p className="mt-4 text-lg text-gray-600 animate-pulse">
-              Carregando os produtos...
-            </p>
-          </div>
+          // <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-r from-blue-100 via-white to-purple-100 z-50">
+            
+            <div className="fixed inset-0 min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-100 via-white to-purple-100 z-50">
+                 <LoadingSpinner />
+                 <p className="mt-4 text-lg text-gray-600 animate-pulse">
+                   Carregando produtos
+                 </p>
+               </div>
         ) : (
           <>
             {filteredProducts.length > 0 ? (
