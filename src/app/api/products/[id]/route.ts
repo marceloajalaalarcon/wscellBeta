@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2024-12-18.acacia',
-});
+import Stripe from '@/lib/Stripe';
 
 // Função para formatar o preço como R$: valor,00
 function formatPrice(amount: number | null): string {
@@ -25,8 +21,8 @@ export async function GET(
   }
 
   try {
-    const product = await stripe.products.retrieve(id);
-    const prices = await stripe.prices.list({ product: id });
+    const product = await Stripe.products.retrieve(id);
+    const prices = await Stripe.prices.list({ product: id });
 
     // Obter o preço do produto (ou 0 se não existir)
     const price = prices.data[0]?.unit_amount ?? null;
@@ -35,7 +31,7 @@ export async function GET(
     const category = product.metadata.category || null;
 
     // Buscar produtos relacionados com base na categoria
-    const relatedProducts = await stripe.products.list({
+    const relatedProducts = await Stripe.products.list({
       active: true,
     });
 
@@ -43,7 +39,7 @@ export async function GET(
 for (const p of relatedProducts.data) {
   // Filtrar por categoria e evitar o próprio produto
   if (p.metadata.category === category && p.id !== id) {
-    const priceData = await stripe.prices.list({ product: p.id });
+    const priceData = await Stripe.prices.list({ product: p.id });
     related.push({
       id: p.id,
       name: p.name,

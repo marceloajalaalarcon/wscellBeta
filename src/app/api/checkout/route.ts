@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2024-12-18.acacia',
-});
+import Stripe from '@/lib/Stripe';
 
 export async function POST(req: Request) {
   try {
@@ -14,13 +10,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields: productId or quantity' }, { status: 400 });
     }
 
-    const product = await stripe.products.retrieve(productId);
+    const product = await Stripe.products.retrieve(productId);
 
     if (!product) {
       return NextResponse.json({ error: `Product with ID ${productId} not found` }, { status: 404 });
     }
 
-    const prices = await stripe.prices.list({
+    const prices = await Stripe.prices.list({
       product: product.id,
     });
 
@@ -35,7 +31,7 @@ export async function POST(req: Request) {
     }
 
     // Criar a sessão de checkout com captura manual
-    const session = await stripe.checkout.sessions.create({
+    const session = await Stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
         {

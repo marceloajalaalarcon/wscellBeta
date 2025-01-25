@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2024-12-18.acacia',
-});
+import Stripe from '@/lib/Stripe';
 
 // Função para formatar o preço como R$: valor,00
 function formatPrice(amount: number | null): string {
@@ -16,8 +13,8 @@ function formatPrice(amount: number | null): string {
 
 export async function GET() {
   try {
-    const products = await stripe.products.list();
-    const prices = await stripe.prices.list();
+    const products = await Stripe.products.list();
+    const prices = await Stripe.prices.list();
     const categorizedProducts: Record<string, any[]> = {};
 
     for (const product of products.data) {
