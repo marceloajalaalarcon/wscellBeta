@@ -150,7 +150,8 @@ const ProductsPage = () => {
             </button>
           )}
         </div>
-
+   {/* Botão whatsapp */}
+   <WhatsAppButton message="Olá, estou interessado nos produtos disponíveis no site!" />
         {/* Produtos */}
         <div ref={productsSectionRef}>
           {isLoading ? (
@@ -166,11 +167,8 @@ const ProductsPage = () => {
               Nenhum produto encontrado.
             </p>
           )}
-           {/* Botão whatsapp */}
-        <WhatsAppButton message="Olá, estou interessado nos produtos disponíveis no site!" />
         </div>
       </div>
-       
       <Footer />
     </div>
   );
