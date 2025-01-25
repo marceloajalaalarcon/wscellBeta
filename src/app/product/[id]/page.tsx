@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Footer } from '@/components/home/Footer';
 
+import WhatsAppButton from '@/components/shared/WhatsAppButton';
+
 interface Product {
   id: string;
   name: string;
@@ -41,7 +43,7 @@ const ProductDetailPage = () => {
 
   if (!product) return <div className="text-center py-12 text-lg">Carregando...</div>;
 
-  const category = product.category ?? 'Categoria não especificada';
+  const category = product.category ?? null;
   const garantia = product.garantia ?? null;
 
   return (
@@ -59,9 +61,12 @@ const ProductDetailPage = () => {
         {/* Detalhes do produto e Categoria */}
         <div className="w-full lg:w-1/2 bg-white rounded-2xl shadow-xl p-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
-          <p className="text-sm text-gray-500">
-            Categoria: <span className="font-bold text-gray-900">{category}</span>
-          </p>
+          {category && (
+                <p className="text-sm text-gray-500">
+                Categoria: <span className="font-bold text-gray-900">{category}</span>
+              </p>
+              )}
+          
           <p className="text-gray-700 text-lg leading-relaxed mb-6">{product.description}</p>
 
           {/* Preço */}
@@ -100,15 +105,16 @@ const ProductDetailPage = () => {
           </div>
         </div>
       </div>
-
+    
       {/* Produtos relacionados */}
       <div className="mt-16 max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
           Você também pode gostar
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
+     
         {product.related && product.related.length > 0 ? (
+         
           product.related.map((relatedProduct) => (
             <a
               key={relatedProduct.id}
@@ -128,6 +134,7 @@ const ProductDetailPage = () => {
                 <p className="text-purple-700 font-bold mt-2">{relatedProduct.price}</p>
               </div>
             </a>
+            
           ))
         ) : (
           <p className="text-center text-gray-600 col-span-4">
@@ -137,6 +144,10 @@ const ProductDetailPage = () => {
 
         </div>
       </div>
+       {/* Botão whatsapp */}
+     <WhatsAppButton
+          message={`Olá, estou interessado no produto "*${product.name}*" que custa: "*${product.price}*" que vi no site.`}
+        />
       <Footer/>
     </div>
   );

@@ -5,6 +5,7 @@ import { Footer } from '@/components/home/Footer';
 import ProductCard from '@/components/home/ProductCard';
 import SearchBar from '@/components/home/SearchBar';
 import LoadingSpinner from '@/components/home/LoadingSpinner';
+import WhatsAppButton from '@/components/shared/WhatsAppButton';
 
 interface Product {
   id: string;
@@ -86,6 +87,9 @@ const ProductsPage = () => {
 
   return (
     <div className="bg-gradient-to-r from-blue-100 via-white to-purple-100 py-8 px-4 sm:px-6">
+ 
+
+      {/* inicio page */}
       <div className="max-w-screen-xl mx-auto">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-center text-gray-800 mb-8">
           Bem-vindo à nossa Loja!
@@ -164,6 +168,8 @@ const ProductsPage = () => {
           )}
         </div>
       </div>
+          {/* Botão whatsapp */}
+    <WhatsAppButton message="Olá, estou interessado nos produtos disponíveis no site!" />
       <Footer />
     </div>
   );

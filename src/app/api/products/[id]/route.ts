@@ -32,7 +32,7 @@ export async function GET(
     const price = prices.data[0]?.unit_amount ?? null;
 
     // Pegar a categoria do produto atual
-    const category = product.metadata.category || 'Uncategorized';
+    const category = product.metadata.category || null;
 
     // Buscar produtos relacionados com base na categoria
     const relatedProducts = await stripe.products.list({
@@ -61,7 +61,7 @@ for (const p of relatedProducts.data) {
       image: product.images[0] || '',
       price: formatPrice(price),
       category,
-      garantia: product.metadata.garantia || 'Sem garantia',
+      garantia: product.metadata.garantia || null,
       related, // Adicionar os produtos relacionados
     });
   } catch (error: unknown) {
