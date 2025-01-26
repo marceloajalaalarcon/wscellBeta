@@ -74,7 +74,7 @@ const ProductDetailPage = () => {
   const handleCheckout = async () => {
     await checkoutHandler({
       productId: product.id,
-      checkoutid: 2,
+      checkoutid: 1,
     });
   };
 
