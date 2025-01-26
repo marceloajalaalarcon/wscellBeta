@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Head from 'next/head';
 import ProductImage from '@/components/Product/ProductImage';
 import ProductDetails from '@/components/Product/ProductDetails';
 import RelatedProducts from '@/components/Product/RelatedProducts';
@@ -29,6 +28,7 @@ interface RelatedProduct {
   image: string;
   price: string;
 }
+
 
 const ProductDetailPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
@@ -71,26 +71,14 @@ const ProductDetailPage = () => {
 
   const messageWhatsapp = `Olá, gostaria de saber mais sobre o produto "*${product.name}*" no valor de: "*${product.price}*" vi no site.`;
 
- {/* handleCheckout */}
   const handleCheckout = async () => {
     await checkoutHandler({
       productId: product.id,
-      checkoutid: 1,
+      checkoutid: 2,
     });
   };
 
   return (
-    <>
-      <Head>
-        <title>{product.name} | Detalhes do Produto</title>
-        <meta name="description" content={product.description || 'Confira os detalhes do produto.'} />
-        <meta property="og:title" content={product.name} />
-        <meta property="og:description" content={product.description || 'Saiba mais sobre este produto incrível.'} />
-        <meta property="og:image" content={product.image} />
-        <meta property="og:type" content="product" />
-        <meta property="product:price:amount" content={product.price} />
-        <meta property="product:price:currency" content="BRL" />
-      </Head>
       <div className="bg-gradient-to-r from-blue-100 via-white to-purple-100 py-12 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-8">
           <ProductImage image={product.image} name={product.name} />
@@ -108,7 +96,6 @@ const ProductDetailPage = () => {
         <WhatsAppButton productName={product.name} message={messageWhatsapp} />
         <Footer />
       </div>
-    </>
   );
 };
 
@@ -132,7 +119,7 @@ export default ProductDetailPage;
   //   }
   // };
 
-
+//
   // // const handleCheckout = () => {
   // //   router.push(`/checkout/${product.id}`);
   // // };
