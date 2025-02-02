@@ -31,11 +31,18 @@ const ProductsPage = () => {
 
   useEffect(() => {
     async function fetchProducts() {
-      const response = await fetch('/api/products');
-      const data: CategoryProducts = await response.json();
-      setCategories(data);
-      setFilteredProducts(Object.values(data).flat());
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/products');
+        const data: CategoryProducts = await response.json();
+        console.log('Total de produtos recebidos:', Object.values(data).flat().length);
+        setCategories(data);
+        setFilteredProducts(Object.values(data).flat());
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     fetchProducts();
@@ -83,7 +90,7 @@ const ProductsPage = () => {
 
   const displayedCategories = showAllCategories
     ? filteredCategories
-    : filteredCategories.slice(0, 5);
+    : filteredCategories.slice(0, 4);
 
   return (
     <div className="bg-gradient-to-r from-blue-100 via-white to-purple-100 py-8 px-4 sm:px-6">
