@@ -34,8 +34,6 @@ WSCELL Beta é uma aplicação de e-commerce desenvolvida para demonstrar integr
 
 ## Screenshots
 
-> **Observação:** Substitua os links abaixo pelos caminhos reais das imagens do seu projeto.
-
 - **Página Inicial**
   ![Página Inicial](https://github.com/user-attachments/assets/587017b1-20b1-4624-acd4-c0cee1030560)
 
