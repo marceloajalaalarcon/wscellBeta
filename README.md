@@ -32,6 +32,46 @@ WSCELL Beta é uma aplicação de e-commerce desenvolvida para demonstrar integr
 
 ---
 
+## Screenshots
+
+> **Observação:** Substitua os links abaixo pelos caminhos reais das imagens do seu projeto.
+
+- **Página Inicial**
+  ![Página Inicial](https://github.com/user-attachments/assets/587017b1-20b1-4624-acd4-c0cee1030560)
+
+- **Detalhes do Produto**
+  ![Detalhes do Produto](https://github.com/user-attachments/assets/0ce1df35-6ae6-4f1c-bda7-4280cea35fe2)
+
+- **Processo de Checkout**
+  ![Checkout](https://github.com/user-attachments/assets/e889dd72-fa8f-4159-9329-e1adaace0fbb)
+
+---
+
+
+## Contato
+
+- **Marcelo A. alarcon**  
+  [Seu Email](mailto:marcelo.alarcon@duckdev.com.br)  
+  [Perfil no GitHub](https://github.com/marceloajalaalarcon)
+
+
+---
+
+## Estrutura do Projeto
+
+```plaintext
+wscellBeta/
+├──src/
+    ├── components/      # Componentes React reutilizáveis
+    ├── app/             # Páginas do Next.js e rotas de API
+    └──  lib/             # Módulos Utilitários e Integrações
+├── public/            # Arquivos públicos (imagens, etc.)
+├── tsconfig.json      # Configurações do TypeScript
+└── README.md          # Este arquivo
+```
+
+---
+
 ## Pré-Requisitos
 
 Antes de começar, certifique-se de ter instalado:
@@ -84,44 +124,6 @@ yarn dev
 ```
 
 Acesse a aplicação em [http://localhost:3000](http://localhost:3000).
-
----
-
-## Screenshots
-
-> **Observação:** Substitua os links abaixo pelos caminhos reais das imagens do seu projeto.
-
-- **Página Inicial**
-  ![Página Inicial](https://github.com/user-attachments/assets/587017b1-20b1-4624-acd4-c0cee1030560)
-
-- **Detalhes do Produto**
-  ![Detalhes do Produto](https://github.com/user-attachments/assets/0ce1df35-6ae6-4f1c-bda7-4280cea35fe2)
-
-- **Processo de Checkout**
-  ![Checkout](https://github.com/user-attachments/assets/e889dd72-fa8f-4159-9329-e1adaace0fbb)
-
----
-
-## Estrutura do Projeto
-
-```plaintext
-wscellBeta/
-├──src/
-    ├── components/      # Componentes React reutilizáveis
-    ├── app/             # Páginas do Next.js e rotas de API
-    └──  lib/             # Módulos Utilitários e Integrações
-├── public/            # Arquivos públicos (imagens, etc.)
-├── tsconfig.json      # Configurações do TypeScript
-└── README.md          # Este arquivo
-```
-
----
-
-## Contato
-
-- **Marcelo A. alarcon**  
-  [Seu Email](mailto:marcelo.alarcon@duckdev.com.br)  
-  [Perfil no GitHub](https://github.com/marceloajalaalarcon)
 
 ---
 
