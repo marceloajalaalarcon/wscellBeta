@@ -49,7 +49,7 @@ WSCELL Beta é uma aplicação de e-commerce desenvolvida para demonstrar integr
 ## Contato
 
 - **Marcelo A. alarcon**  
-  [Seu Email](mailto:marcelo.alarcon@duckdev.com.br)  
+  [marcelo.alarcon@duckdev.com.br](mailto:marcelo.alarcon@duckdev.com.br)  
   [Perfil no GitHub](https://github.com/marceloajalaalarcon)
 
 
