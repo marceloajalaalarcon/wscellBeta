@@ -2,17 +2,6 @@
 
 WSCELL Beta é uma aplicação de e-commerce desenvolvida para demonstrar integração avançada com a API do Stripe, utilizando as tecnologias Next.js, TailwindCSS e TypeScript. Neste projeto, o Stripe funciona como um dashboard onde os produtos são cadastrados e, automaticamente, exibidos no site. Além disso, o sistema conta com rotas integradas do Next.js para realizar requisições ao Stripe, processar checkouts e apresentar detalhes de cada produto.
 
----
-
-## Visão Geral
-
-- **Integração com Stripe:** Gerencie os produtos diretamente no Stripe, e as informações são carregadas dinamicamente no site.
-- **Rotas do Next.js:** Utiliza a API integrada do Next.js para realizar a comunicação com o Stripe e processar operações como listagem de produtos, exibição de detalhes e checkout.
-- **Design Responsivo:** Construído com TailwindCSS, garantindo uma interface moderna e adaptável a diversos dispositivos.
-- **Desenvolvimento com TypeScript:** Código mais robusto e com tipagem estática, facilitando a manutenção e escalabilidade do projeto.
-
----
-
 ## Tecnologias Utilizadas
 
 - **[Next.js](https://nextjs.org/):** Framework React para aplicações full-stack.
